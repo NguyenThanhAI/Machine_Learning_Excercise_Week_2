@@ -28,25 +28,14 @@ if __name__ == "__main__":
 
     x = np.random.uniform(low=0, high=101, size=(10, 3))
 
-    '''print(x)
+    for kernel_type in ("linear", "gaussian_rbf", "polynomial", "sigmoid"):
+        if kernel_type == "linear":
+            K = construct_kernel(x=x, type=kernel_type)
+        elif kernel_type == "gaussian_rbf":
+            K = construct_kernel(x=x, type=kernel_type, sigma=40)
+        elif kernel_type == "polynomial":
+            K = construct_kernel(x=x, type=kernel_type, r=0.1, gamma=0.0001, d=-1/3)
+        elif kernel_type == "sigmoid":
+            K = construct_kernel(x=x, type=kernel_type, r=0.1, gamma=0.0001)
 
-    K = np.matmul(x, x.T)
-    print(K)
-
-    w, v = np.linalg.eig(K)
-
-    print(w)
-
-    dist_matrix = x[:, np.newaxis, :] - x[np.newaxis, :, :]
-
-    dist_matrix = np.sum(dist_matrix**2, axis=2)
-
-    K_rbf = np.exp(-dist_matrix/(2))
-
-    print(K_rbf)'''
-
-    '''K = construct_kernel(x=x, type="polynomial", r=0.1, gamma=0.1, d=-1/3)
-    print(K)'''
-
-    K = construct_kernel(x=x, type="sigmoid", r=0.1, gamma=0.0001)
-    print(K)
+        print("Kernel of type: {} is {}".format(kernel_type, K))
