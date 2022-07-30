@@ -1,5 +1,6 @@
-from typing import Optional
+from typing import Optional, Tuple
 import numpy as np
+
 
 def construct_kernel(x: np.ndarray, type: str, sigma: Optional[float]=None, r: Optional[float]=None, gamma: Optional[float]=None, d: Optional[float]=None) -> np.ndarray:
 
@@ -18,4 +19,11 @@ def construct_kernel(x: np.ndarray, type: str, sigma: Optional[float]=None, r: O
         return np.tanh(r + gamma * np.matmul(x, x.T))
     else:
         raise ValueError("{} is not a supported kernel type".format(type))
+
+
+def read_data(data_path: str) -> Tuple[np.ndarray, np.ndarray]:
+    x = np.genfromtxt(data_path, delimiter=",", usecols=(0, 1, 2, 3))
+    y = np.genfromtxt(data_path, delimiter=",", usecols=4, dtype=str)
+
+    return x, y
         
